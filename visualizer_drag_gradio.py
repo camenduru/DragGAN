@@ -72,11 +72,13 @@ def init_images(global_state):
     else:
         state = global_state
 
+    w_load = torch.load("/content/DragGAN/checkpoints/0.pt")
+
     state['renderer'].init_network(
         state['generator_params'],  # res
         valid_checkpoints_dict[state['pretrained_weight']],  # pkl
         state['params']['seed'],  # w0_seed,
-        None,  # w_load
+        w_load,  # None
         state['params']['latent_space'] == 'w+',  # w_plus
         'const',
         state['params']['trunc_psi'],  # trunc_psi,
@@ -161,7 +163,7 @@ print(os.listdir(cache_dir))
 print('Valid checkpoint file:')
 print(valid_checkpoints_dict)
 
-init_pkl = 'stylegan2_lions_512_pytorch'
+init_pkl = 'stylegan2_custom_512_pytorch'
 
 with gr.Blocks() as app:
 
